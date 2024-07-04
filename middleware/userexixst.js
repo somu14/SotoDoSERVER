@@ -6,7 +6,7 @@ const userExist = async (req, res, next) => {
         const user = await User.findOne({email:email});
 
         if (user) {
-            return res.status(400).json({ message: "User already exists" });
+            return res.status(201).json({ message: "User already exists" });
         }
 
         next();

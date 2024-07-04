@@ -8,7 +8,7 @@ router.post("/", async (req, res) => {
   try {
     const userdata = await user.findOne({ email: values.email });
     if (userdata == null) {
-      res.status(200).json({ message: "Not registered" });
+      return res.status(200).json({ message: "Not registered" });
     }
     const result = await bcrypt.compare(values.password, userdata.password);
     if (result) {
@@ -17,13 +17,13 @@ router.post("/", async (req, res) => {
         process.env.secretkey,
         { expiresIn: "10d" }
       );
-      res.cookie("token", token);
-      res.status(200).json({ message: "login success" });
+      //res.cookie("token", token);
+      return res.status(200).json({ message: "login success",token:token});
     } else {
-      res.status(200).json({ message: "incorrect password" });
+      return res.status(201).json({ message: "incorrect password" });
     }
   } catch (err) {
-    res.status(500).json({ message: "Internal Server error" });
+    return res.status(500).json({ message: "Internal Server error" });
   }
 });
 

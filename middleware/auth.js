@@ -3,17 +3,17 @@ const jwt=require("jsonwebtoken");
 const auth=async(req,res,next)=>{
     try
     {
-    const token=req.cookies.token;
+    const token=req.headers.authorization;
     if(!token)
         {
-            res.status(400).json({message:"not authentic"});
+           return res.status(403).json({message:"not authentic"});
         }
         else
         {
            const result= await jwt.verify(token,process.env.secretkey,(err,user)=>{
             if(err)
                 {
-                    res.redirect("/login");
+                   return res.status(401).json({message:"jwt failed"})
                 }
                 req.user=user.email;
                 next();
