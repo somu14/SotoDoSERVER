@@ -9,6 +9,10 @@ app.use(bodyParser.json());
 connectdb();
 app.use(cookieParser());
 
+app.get("/",(req,res)=>{
+    res.send("hello");
+})
+
 //routes
 //signuproutes
 app.use("/signup",require("./routes/Signup"));
