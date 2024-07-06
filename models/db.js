@@ -2,10 +2,10 @@ const mongoose=require("mongoose");
 
 const connectdb =async()=>{
     try {
-       const resposne = await mongoose.connect("mongodb://localhost:27017/SoToDo")
+       const resposne = await mongoose.connect(process.env.mongoUrl)
        console.log("db connected");
     } catch (error) {
-        console.log(error);
+        console.log("mongo error is:",error);
     }
 }
 
